@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="ExpandingTextView">
+        <attr name="openText" format="string"/>
+        <attr name="closeText" format="string"/>
+        <attr name="openTextColor" format="integer|reference"/>
+        <attr name="closeTextColor" format="integer|reference"/>
+    </declare-styleable>
+</resources>

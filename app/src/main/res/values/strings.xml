@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">ExpandingTextView</string>
+    <string name="test">Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!</string>
+</resources>
