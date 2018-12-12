@@ -1,16 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <declare-styleable name="ExpandingTextView">
-        <attr name="openText" format="string"/>
-        <attr name="closeText" format="string"/>
-        <attr name="openTextColor" format="integer|reference"/>
-        <attr name="closeTextColor" format="integer|reference"/>
+        <attr name="open_Text" format="string"/>
+        <attr name="close_Text" format="string"/>
+        <attr name="openText_Color" format="integer|reference"/>
+        <attr name="closeText_Color" format="integer|reference"/>
     </declare-styleable>
 
     <declare-styleable name="FoldableTextView">
-        <attr name="openText" format="string"/>
-        <attr name="closeText" format="string"/>
+        <attr name="openText" format="string|reference"/>
+        <attr name="closeText" format="string|reference"/>
         <attr name="openTextColor" format="integer|reference"/>
         <attr name="closeTextColor" format="integer|reference"/>
+        <attr name="thisPadding" format="dimension|reference"/>
+        <attr name="maxLine" format="integer"/>
+        <attr name="textSize" format="integer"/>
+
     </declare-styleable>
 </resources>

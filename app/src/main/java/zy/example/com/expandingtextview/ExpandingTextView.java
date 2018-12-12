@@ -54,17 +54,17 @@ public class ExpandingTextView extends android.support.v7.widget.AppCompatTextVi
     public ExpandingTextView(Context context, @org.jetbrains.annotations.Nullable @Nullable AttributeSet attrs) {
         super(context, attrs);
         TypedArray ta=context.obtainStyledAttributes(attrs,R.styleable.ExpandingTextView);
-        String result=ta.getString(R.styleable.ExpandingTextView_openText);
+        String result=ta.getString(R.styleable.ExpandingTextView_open_Text);
         if (result!=null){
             openText=result;
         }
-        result=ta.getString(R.styleable.ExpandingTextView_closeText);
+        result=ta.getString(R.styleable.ExpandingTextView_close_Text);
         if (result!=null){
             closeText=result;
         }
-        int color=ta.getResourceId(R.styleable.ExpandingTextView_openTextColor,R.color.colorPrimary);
+        int color=ta.getResourceId(R.styleable.ExpandingTextView_openText_Color,R.color.colorPrimary);
         openTextColor=color;
-        color=ta.getResourceId(R.styleable.ExpandingTextView_closeTextColor,R.color.colorPrimary);
+        color=ta.getResourceId(R.styleable.ExpandingTextView_closeText_Color,R.color.colorPrimary);
         closeTextColor=color;
         ta.recycle();
         initText();

@@ -13,6 +13,7 @@ import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -30,8 +31,9 @@ public class FoldableTextView extends ViewGroup {
     private TextView mTextButton;
     private String originText;
     private int mWidth;
-    private int padding=10;
     private int maxLine;
+    private int thisPadding;
+    private float textSize;
     //    展开的按钮span
     private SpannableString openExpand;
     //    折叠的按钮span
@@ -58,10 +60,11 @@ public class FoldableTextView extends ViewGroup {
         if (result!=null){
             closeText=result;
         }
-        int color=ta.getResourceId(R.styleable.FoldableTextView_openTextColor,R.color.colorPrimary);
-        openTextColor=color;
-        color=ta.getResourceId(R.styleable.FoldableTextView_closeTextColor,R.color.colorPrimary);
-        closeTextColor=color;
+        openTextColor=ta.getResourceId(R.styleable.FoldableTextView_openTextColor,R.color.colorPrimary);
+        closeTextColor=ta.getResourceId(R.styleable.FoldableTextView_closeTextColor,R.color.colorPrimary);
+        maxLine=ta.getResourceId(R.styleable.FoldableTextView_maxLine,3);
+        thisPadding=ta.getResourceId(R.styleable.FoldableTextView_thisPadding,10);
+        textSize =ta.getInteger(R.styleable.FoldableTextView_textSize,12);
         ta.recycle();
         initView(context);
     }
@@ -69,10 +72,13 @@ public class FoldableTextView extends ViewGroup {
 //    添加textView
     private void initView(Context context) {
         mTextView=new TextView(context);
+        mTextView.setTextSize(textSize);
+        Log.i(TAG, "initView: textSize="+textSize);
         LayoutParams lp=new LayoutParams(LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT);
         addView(mTextView,lp);
 
         mTextButton=new TextView(context);
+        mTextButton.setTextSize(textSize);
         addView(mTextButton,lp);
 
         openExpand = new SpannableString(openText);
@@ -105,6 +111,7 @@ public class FoldableTextView extends ViewGroup {
             }
         }, closeTextColor);
         closeExpand.setSpan(closeButtonSpan, 0, closeExpand.length(), Spannable.SPAN_EXCLUSIVE_INCLUSIVE);
+
     }
 
 
@@ -115,28 +122,30 @@ public class FoldableTextView extends ViewGroup {
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+
 //        只支持height wrap模式
         if (mWidth==0){
-            mWidth=MeasureSpec.getSize(widthMeasureSpec)-padding*2;
+            mWidth=MeasureSpec.getSize(widthMeasureSpec);
         }
-        int mHeight = padding;
+        setPadding(thisPadding*2,thisPadding*2,thisPadding*2,thisPadding*2);
+        int mHeight = getPaddingTop();
         int count=getChildCount();
         for (int i=0;i<count;i++){
             View view=getChildAt(i);
             if (view.getVisibility()!=GONE){
-                widthMeasureSpec=MeasureSpec.makeMeasureSpec(mWidth,MeasureSpec.EXACTLY);
                 measureChild(view,widthMeasureSpec,heightMeasureSpec);
                 int height=view.getMeasuredHeight();
-                mHeight +=height+padding;
+                mHeight +=height+getPaddingTop();
             }
         }
         setMeasuredDimension(mWidth, mHeight);
+
     }
 
     @Override
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
-        int sumLeft=padding;
-        int sumTop=padding;
+        int sumLeft=getPaddingLeft();
+        int sumTop=getPaddingTop();
         int count=getChildCount();
         for (int i=0;i<count;i++) {
             View view = getChildAt(i);
@@ -144,7 +153,7 @@ public class FoldableTextView extends ViewGroup {
                 int width=view.getMeasuredWidth();
                 int height=view.getMeasuredHeight();
                 view.layout(sumLeft,sumTop,sumLeft+width,sumTop+height);
-                sumTop+=height+padding;
+                sumTop+=height+getPaddingTop();
             }
         }
     }
@@ -234,6 +243,11 @@ public class FoldableTextView extends ViewGroup {
     public void setButtonColor(String openText,String closeText){
         this.openText=openText;
         this.closeText=closeText;
+    }
+
+    public void setTextSize(int textSize){
+        mTextView.setTextSize(textSize);
+        mTextButton.setTextSize(textSize);
     }
 
 
