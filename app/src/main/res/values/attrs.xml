@@ -6,4 +6,11 @@
         <attr name="openTextColor" format="integer|reference"/>
         <attr name="closeTextColor" format="integer|reference"/>
     </declare-styleable>
+
+    <declare-styleable name="FoldableTextView">
+        <attr name="openText" format="string"/>
+        <attr name="closeText" format="string"/>
+        <attr name="openTextColor" format="integer|reference"/>
+        <attr name="closeTextColor" format="integer|reference"/>
+    </declare-styleable>
 </resources>
